@@ -21,7 +21,7 @@
 
 |      김태완       |          문유식         |       정윤진         |                                                                                                               
 | :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
-|   <img width="160px" src="https://avatars.githubusercontent.com/u/72859111?v=4"/>    |                      <img width="160px" src="https://avatars.githubusercontent.com/u/108277811?s=70&v=4" />    |                   <img width="160px" src="https://avatars.githubusercontent.com/u/127393336?s=70&v=4"/>   |
+|   <img width="160px" src="https://avatars.githubusercontent.com/u/72859111?v=4"/>    |                      <img width="160px" src="https://avatars.githubusercontent.com/u/108277811?v=4" />    |                   <img width="160px" src="https://avatars.githubusercontent.com/u/127393336?v=4"/>   |
 |   [@TaewanKIM20](https://github.com/TaewanKIM20)   |    [@MUN-YU](https://github.com/MUN-YU)  | [@YoonJinJung](https://github.com/YoonJinJung)  |
 | 성균관대학교 소프트웨어학과 4학년 | 성균관대학교 소프트웨어학과 3학년 | 성균관대학교 소프트웨어학과 3학년 |
 
