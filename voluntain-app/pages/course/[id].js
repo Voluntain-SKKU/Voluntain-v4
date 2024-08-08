@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { url } from "../../config/next.config";
 
 import { useCookies } from 'react-cookie'
-import { DiscussionEmbed } from "disqus-react"
+//import { DiscussionEmbed } from "disqus-react"
 
 import { Button, Collapse, Drawer, Fab, List, ListItem, ListItemText, Hidden } from '@material-ui/core'
 
@@ -158,12 +158,12 @@ export default function LecturePage({ course, titles }) {
   }
 
   // disqus 설정
-  const disqusShortname = "skku-voluntain"
-  const disqusConfig = {
-    url: "http://localhost:3000/course/"+course.id + '/' + course.lectures[lectureId].lecture_number,
-    identifier : course.id + '/' + course.lectures[lectureId].lecture_number,
-    title: course.lectures[lectureId].title // Single post title
-  }
+  // const disqusShortname = "skku-voluntain"
+  // const disqusConfig = {
+  //   url: "http://localhost:3000/course/"+course.id + '/' + course.lectures[lectureId].lecture_number,
+  //   identifier : course.id + '/' + course.lectures[lectureId].lecture_number,
+  //   title: course.lectures[lectureId].title // Single post title
+  // }
 
   /**
    * 유튜브 API에서 비디오 종료가 감지될 경우 시행되며,
@@ -317,12 +317,12 @@ export default function LecturePage({ course, titles }) {
           </div>
 
           {/* disqus */}
-          <div style={{ width: '100%' }}>
+          {/* <div style={{ width: '100%' }}>
             <DiscussionEmbed
               shortname={disqusShortname}
               config={disqusConfig}
             />
-          </div>
+          </div> */}
         </div>
       </main>
 

@@ -6,15 +6,15 @@ import { url } from '../config/next.config' //url 가져오기
 
 import { Divider } from '@material-ui/core'
 import { MainBanner } from '../components/MainBanner'
-import { DiscussionEmbed } from "disqus-react"
+//import { DiscussionEmbed } from "disqus-react"
 
 export default function Page({ titles }) {
-  const disqusShortname = "skku-voluntain"
-  const disqusConfig = {
-    url: "https://localhost:3000/question",
-    //identifier: course.lectures[lectureId].id, // Single post id
-    title: "Question for everything" // Single post title
-  }
+  // const disqusShortname = "skku-voluntain"
+  // const disqusConfig = {
+  //   url: "https://localhost:3000/question",
+  //   //identifier: course.lectures[lectureId].id, // Single post id
+  //   title: "Question for everything" // Single post title
+  // }
 
   return (
     <div className={styles.container}>
@@ -32,12 +32,12 @@ export default function Page({ titles }) {
         </Typography>
 
         <br></br>
-        <div style={{ width: 900, alignItems: 'center' }}>
+        {/* <div style={{ width: 900, alignItems: 'center' }}>
           <DiscussionEmbed
             shortname={disqusShortname}
             config={disqusConfig}
           />
-        </div>
+        </div> */}
       </main>
     </div>
   )
