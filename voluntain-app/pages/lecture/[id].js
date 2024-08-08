@@ -5,7 +5,7 @@ import Youtube from 'react-youtube';
 import Router from 'next/router';
 import Link from "next/link";
 import React, { useState, useEffect } from 'react';
-import { DiscussionEmbed } from "disqus-react";
+//import { DiscussionEmbed } from "disqus-react";
 import { useCookies } from 'react-cookie'
 
 
@@ -25,13 +25,13 @@ export default function Home({ course, course2 }) {
    const [cookies, setCookie, removeCookie] = useCookies(['courseId', 'lectureId', 'videoEnd', 'noCookie']);
 
   /*const [lectureId, setLectureId] = useState(0);*/
-  // disqus 설정
-  const disqusShortname = "skku-voluntain"
-  const disqusConfig = {
-    url: "http://localhost:3000/newcourse/" + course.id,
-    identifier: course.id + '',
-    title: course.title // Single post title
-  }
+  // // disqus 설정
+  // const disqusShortname = "skku-voluntain"
+  // const disqusConfig = {
+  //   url: "http://localhost:3000/newcourse/" + course.id,
+  //   identifier: course.id + '',
+  //   title: course.title // Single post title
+  // }
   
   //move to the course page of the lecture
   const handleClick = (e) => {
@@ -191,12 +191,12 @@ export default function Home({ course, course2 }) {
               />
             </div>
             {/* disqus */}
-            <div style={{ width: '100%' }}>
+            {/* <div style={{ width: '100%' }}>
               <DiscussionEmbed
                 shortname={disqusShortname}
                 config={disqusConfig}
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
