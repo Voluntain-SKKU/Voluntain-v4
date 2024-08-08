@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "courses",
+  "info": {
+    "name": "Course",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "about": {
+      "type": "richtext"
+    },
+    "lectures": {
+      "via": "course",
+      "collection": "lecture"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "easy",
+        "normal",
+        "hard"
+      ]
+    },
+    "logo_img": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

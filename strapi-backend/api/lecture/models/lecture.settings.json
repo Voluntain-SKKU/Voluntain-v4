@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lectures",
+  "info": {
+    "name": "Lecture",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "course": {
+      "via": "lectures",
+      "model": "course"
+    },
+    "video_link": {
+      "type": "string"
+    },
+    "uploaded_date": {
+      "type": "date"
+    },
+    "video_time": {
+      "type": "integer"
+    },
+    "lecture_number": {
+      "type": "integer"
+    },
+    "exercise_question": {
+      "type": "richtext"
+    },
+    "about": {
+      "type": "richtext"
+    },
+    "exercise_answer": {
+      "type": "integer"
+    }
+  }
+}
