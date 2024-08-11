@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import Head from 'next/head';
-import { useCookies } from 'react-cookie';
-import Router from 'next/router';
-import { Button } from '@material-ui/core';
+import { Button, List, ListItem, ListItemText } from '@material-ui/core';
 
 const QuestionsPage = () => {
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [cookies, setCookie] = useCookies(['lastQuestionViewed']);
 
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/qnas/data`; // 새로운 API 엔드포인트
-                console.log(apiUrl); // API URL 확인
-                const response = await fetch(apiUrl);
+                const response = await fetch('http://localhost:1337/qnas/index');
                 if (!response.ok) {
                     throw new Error('Failed to fetch questions');
                 }
                 const data = await response.json();
-                console.log(data); // API 응답 확인
-                setQuestions(data); // 데이터 설정
+                console.log('Fetched data:', data); // 데이터 로깅
+                setQuestions(data);
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -33,11 +27,6 @@ const QuestionsPage = () => {
         fetchQuestions();
     }, []);
 
-    const handleQuestionClick = (questionId) => {
-        setCookie('lastQuestionViewed', questionId, { path: '/', maxAge: 31536000 });
-        Router.push(`/questions/${questionId}`);
-    };
-
     return (
         <div style={styles.container}>
             <Head>
@@ -47,19 +36,21 @@ const QuestionsPage = () => {
             {loading && <div style={styles.loading}>Loading...</div>}
             {error && <div style={styles.error}>Error: {error}</div>}
             {!loading && !error && questions.length > 0 ? (
-                questions.map((question) => (
-                    <div key={question.id} style={styles.questionCard}>
-                        <div onClick={() => handleQuestionClick(question.id)} style={styles.link}>
-                            <h2 style={styles.questionTitle}>{question.title}</h2>
-                            <p style={styles.questionContent}>{question.content}</p>
-                        </div>
-                    </div>
-                ))
+                <List>
+                    {questions.map((question) => (
+                        <ListItem key={question.id} style={styles.listItem}>
+                            <ListItemText
+                                primary={question.title}
+                                secondary={`Content: ${question.content} | User: ${question.user.username} | Email: ${question.user.email}`}
+                            />
+                        </ListItem>
+                    ))}
+                </List>
             ) : (
-                !loading && !error && <p style={styles.noQuestions}>No questions found</p>
+                <p style={styles.noQuestions}>No questions found</p>
             )}
             <div style={styles.buttonContainer}>
-                <Button variant="contained" color="primary" onClick={() => Router.push('/')}>
+                <Button variant="contained" color="primary" onClick={() => window.location.href = '/'}>
                     Go to Main Page
                 </Button>
             </div>
@@ -67,7 +58,7 @@ const QuestionsPage = () => {
     );
 };
 
-// Inline styles
+// 인라인 스타일링
 const styles = {
     container: {
         maxWidth: '800px',
@@ -79,33 +70,12 @@ const styles = {
         fontSize: '2em',
         marginBottom: '20px',
     },
-    questionCard: {
+    listItem: {
+        marginBottom: '10px',
         padding: '20px',
-        margin: '10px 0',
         border: '1px solid #ccc',
         borderRadius: '8px',
         backgroundColor: '#f9f9f9',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s',
-    },
-    questionCardHover: {
-        backgroundColor: '#e9e9e9',
-    },
-    questionTitle: {
-        fontSize: '1.5em',
-        margin: '0 0 10px',
-    },
-    questionContent: {
-        fontSize: '1em',
-        color: '#555',
-    },
-    link: {
-        textDecoration: 'none',
-        color: 'inherit',
-    },
-    noQuestions: {
-        fontSize: '1.2em',
-        color: '#888',
     },
     loading: {
         fontSize: '1.5em',
@@ -117,6 +87,10 @@ const styles = {
         textAlign: 'center',
         marginTop: '20px',
         color: 'red',
+    },
+    noQuestions: {
+        fontSize: '1.2em',
+        color: '#888',
     },
     buttonContainer: {
         textAlign: 'center',

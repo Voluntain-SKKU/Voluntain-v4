@@ -2,16 +2,8 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/qnas/data",
-      "handler": "qna.findQnaData",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/qnas/titles",
-      "handler": "qna.findQnaTitle",
+      "path": "/qnas/index",
+      "handler": "qna.find",
       "config": {
         "policies": []
       }
