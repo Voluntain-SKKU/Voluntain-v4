@@ -45,7 +45,7 @@ export const NavigationBar = (props) => {
             <Nav className="ms-auto">
               <Nav.Link href="/">HOME</Nav.Link>
               <Nav.Link href="/about">ABOUT</Nav.Link>
-              <Nav.Link href="/question">Q&A</Nav.Link>
+              <Nav.Link href="/questions/index">Q&A</Nav.Link>
               <NavDropdown title="COURSES" id="basic-nav-dropdown">
                 {props.titles.map((item) => (
                   <NavDropdown.Item key={item.id} href={"/newcourse/" + item.id}>{item.title}</NavDropdown.Item>

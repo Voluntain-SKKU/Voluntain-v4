@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "qnas",
+  "info": {
+    "name": "Qna",
+    "description": "Questions and answers"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "text",
+      "required": true
+    },
+    "user": {
+      "model": "auth",
+      "via": "qnas",
+      "description": "The user who created the QnA"
+    }
+  }
+}

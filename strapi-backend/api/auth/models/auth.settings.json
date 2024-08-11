@@ -20,6 +20,11 @@
     },
     "password": {
       "type": "password"
+    },
+    "qnas": {
+      "collection": "qna",
+      "via": "user",
+      "description": "List of QnAs created by the user"
     }
   }
 }
