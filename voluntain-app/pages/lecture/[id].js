@@ -24,14 +24,6 @@ export default function Home({ course, course2 }) {
    */
    const [cookies, setCookie, removeCookie] = useCookies(['courseId', 'lectureId', 'videoEnd', 'noCookie']);
 
-  /*const [lectureId, setLectureId] = useState(0);*/
-  // // disqus 설정
-  // const disqusShortname = "skku-voluntain"
-  // const disqusConfig = {
-  //   url: "http://localhost:3000/newcourse/" + course.id,
-  //   identifier: course.id + '',
-  //   title: course.title // Single post title
-  // }
   
   //move to the course page of the lecture
   const handleClick = (e) => {

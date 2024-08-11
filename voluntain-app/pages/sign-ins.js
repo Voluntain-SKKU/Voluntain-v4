@@ -33,7 +33,14 @@ export default function SignInPage() {
 
     if (response.ok) {
       console.log('Login successful', data);
-      login(); // 로그인 상태 업데이트
+      // 로그인 상태 업데이트 시 username도 포함하여 업데이트
+      const updatedUserData = {
+        email: userData.email,
+        username: data.username, // API 응답에서 username 추출
+        ...data // 기타 필요한 데이터가 있다면 추가
+      };
+      login(updatedUserData); // AuthContext에서 로그인 상태 관리
+      localStorage.setItem('user', JSON.stringify(updatedUserData)); // 로컬 스토리지에 저장
       router.push('/'); // 성공 시 홈 페이지로 리디렉션
     } else {
       console.error('Login failed', data.message);
