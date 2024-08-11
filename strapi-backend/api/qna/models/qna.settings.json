@@ -22,6 +22,11 @@
       "model": "auth",
       "via": "qnas",
       "description": "The user who created the QnA"
+    },
+    "lecture": {
+      "model": "lecture",
+      "via": "qnas",
+      "description": "The lecture this QnA is related to"
     }
   }
 }

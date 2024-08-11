@@ -17,6 +17,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/qnas/lecture/:lectureId",
+      "handler": "qna.findByLecture",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/qnas",
       "handler": "qna.create",
