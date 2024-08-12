@@ -1,101 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
-import { Button, List, ListItem, ListItemText } from '@material-ui/core';
+import React from 'react';
+import Link from 'next/link';
+import styles from '../../styles/QuestionIndex.module.css';
 
-const QuestionsPage = () => {
-    const [questions, setQuestions] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+export async function getStaticProps() {
+    try {
+        const response = await fetch('http://localhost:1337/qnas/index');
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const questions = await response.json();
+        return { props: { questions } };
+    } catch (error) {
+        return { props: { questions: [], error: error.message } };
+    }
+}
 
-    useEffect(() => {
-        const fetchQuestions = async () => {
-            try {
-                const response = await fetch('http://localhost:1337/qnas/index');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch questions');
-                }
-                const data = await response.json();
-                console.log('Fetched data:', data); // 데이터 로깅
-                setQuestions(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchQuestions();
-    }, []);
+export default function Questions({ questions, error }) {
+    if (error) return <div>Error: {error}</div>;
 
     return (
-        <div style={styles.container}>
-            <Head>
-                <title>Questions</title>
-            </Head>
-            <h1 style={styles.title}>Questions</h1>
-            {loading && <div style={styles.loading}>Loading...</div>}
-            {error && <div style={styles.error}>Error: {error}</div>}
-            {!loading && !error && questions.length > 0 ? (
-                <List>
-                    {questions.map((question) => (
-                        <ListItem key={question.id} style={styles.listItem}>
-                            <ListItemText
-                                primary={question.title}
-                                secondary={`Content: ${question.content} | User: ${question.user.username} | Email: ${question.user.email}`}
-                            />
-                        </ListItem>
-                    ))}
-                </List>
-            ) : (
-                <p style={styles.noQuestions}>No questions found</p>
-            )}
-            <div style={styles.buttonContainer}>
-                <Button variant="contained" color="primary" onClick={() => window.location.href = '/'}>
-                    Go to Main Page
-                </Button>
-            </div>
+        <div className={styles.container}>
+            <h1 className={styles.questionsHeader}>Questions</h1>
+            <ul className={styles.questionList}>
+                {questions.map((question) => (
+                    <li key={question.id} className={styles.questionItem}>
+                        <Link href={`/questions/${question.id}`}>
+                            <a>
+                                <h2>{question.title}</h2>
+                                <p>{question.content}</p>
+                                <small>Author: {question.user ? question.user.username : 'Unknown'}</small>
+                            </a>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
-};
-
-// 인라인 스타일링
-const styles = {
-    container: {
-        maxWidth: '800px',
-        margin: '0 auto',
-        padding: '20px',
-        fontFamily: 'Arial, sans-serif',
-    },
-    title: {
-        fontSize: '2em',
-        marginBottom: '20px',
-    },
-    listItem: {
-        marginBottom: '10px',
-        padding: '20px',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-        backgroundColor: '#f9f9f9',
-    },
-    loading: {
-        fontSize: '1.5em',
-        textAlign: 'center',
-        marginTop: '20px',
-    },
-    error: {
-        fontSize: '1.5em',
-        textAlign: 'center',
-        marginTop: '20px',
-        color: 'red',
-    },
-    noQuestions: {
-        fontSize: '1.2em',
-        color: '#888',
-    },
-    buttonContainer: {
-        textAlign: 'center',
-        marginTop: '20px',
-    },
-};
-
-export default QuestionsPage;
+}

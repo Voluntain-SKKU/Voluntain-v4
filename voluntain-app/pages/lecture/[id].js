@@ -186,9 +186,13 @@ export default function Home({ course, course2, qnas }) {
             <div className={styles.qnaList}>
               <h3>Previous Questions</h3>
               {questions.map((q, index) => (
-                <div key={index} className={styles.qnaItem}>
-                  <h4>{q.title}</h4>
-                  <p>{q.content}</p>
+                <div key={index} className={styles.qnaItem} style={{ borderBottom: '1px solid #ddd', padding: '10px 0' }}>
+                  <Link href={`/questions/${q.id}`}>
+                    <a>
+                      <h4>{q.title}</h4>
+                      <p>{q.content}</p>
+                    </a>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -208,7 +212,7 @@ export const getStaticProps = async (context) => {
   const data2 = await fetch(`${url}/courses/${course.course.id}`);
   const course2 = await data2.json();
 
-  const qnaResponse = await fetch(`${url}/qnas/lecture/${context.params.id}?sort=createdAt:desc`);
+  const qnaResponse = await fetch(`${url}/qnas/lecture/${context.params.id}?sort=created_at:desc`);
   const qnas = await qnaResponse.json();
 
   return {

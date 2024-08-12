@@ -7,7 +7,7 @@ module.exports = {
 
         try {
             const result = await strapi.query('qna').model.fetchAll({
-                columns: ['id', 'title', 'content'],
+                columns: ['id', 'title', 'content', 'updated_at'],
                 withRelated: ['user'], // 'user' 필드를 포함하여 관련 데이터를 가져옵니다.
                 where: { lecture: lectureId },
             });

@@ -1,34 +1,34 @@
 /* fonts */
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Black+Han+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Signika+Negative:wght@300;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@400;500;600&family=Ubuntu:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Black+Han+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Signika+Negative:wght@300;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@400;500;600&family=Ubuntu:wght@700&display=swap");
 
 .container {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   --hex-parent-height: 100%;
   --hex-parent-width: 100%;
 }
 
 .titlefont {
-  font-family: 'Signika Negative', sans-serif;
+  font-family: "Signika Negative", sans-serif;
 }
 
-.navwrapper{
+.navwrapper {
   display: flex;
   background-color: #fafafa;
 }
 
-.navbar{
+.navbar {
   width: 70%;
   margin: auto;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-weight: 600;
 }
 
-.navcontainer{
+.navcontainer {
   padding: 0;
-  margin: .1rem;
-  max-width:100%;
+  margin: 0.1rem;
+  max-width: 100%;
 }
 
 .maintitle {
@@ -37,22 +37,22 @@
   font-size: 5rem;
   text-align: center;
   /* font-family: 'Black Han Sans', sans-serif; */
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-weight: 700;
 }
 
 .slogan {
   line-height: 3;
   font-size: 2rem;
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
 }
 
-.contenttitle{
+.contenttitle {
   display: inline-block;
   text-align: left;
   font-size: 2rem;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin-bottom: 1rem;
 }
 
@@ -66,37 +66,37 @@
 .maincard {
   flex-direction: row;
   width: 430px;
-  margin: .3rem;
+  margin: 0.3rem;
 }
-.maincard .title{
+.maincard .title {
   font-size: 2rem;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   font-weight: 400;
 }
-.maincard .text{
+.maincard .text {
   height: 70px;
-  padding-top: .2rem;
+  padding-top: 0.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
-  display:-webkit-box;
-  word-wrap:break-word; 
-  -webkit-line-clamp:3; /* 3줄이상이면 ...으로 줄이기 */ 
-  -webkit-box-orient:vertical;
-  font-family: 'Montserrat', sans-serif;
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 3; /* 3줄이상이면 ...으로 줄이기 */
+  -webkit-box-orient: vertical;
+  font-family: "Montserrat", sans-serif;
 }
 
-.coursecard a{
+.coursecard a {
   color: #000;
   text-decoration: none;
 }
 
-.menu{
-  display: flex;  
+.menu {
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.mainwrapper{
+.mainwrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,19 +112,18 @@
   color: white;
   width: 100%;
   height: 300px;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
 }
 
 .main {
-  padding: .5rem;
-  margin: .5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
-
 
 .footer {
   background: #ece6cc;
@@ -154,7 +153,7 @@
 }
 
 .footer a:hover {
-  color: #00A553;
+  color: #00a553;
 }
 
 .title a {
@@ -167,7 +166,6 @@
 .title a:active {
   text-decoration: underline;
 }
-
 
 .code {
   background: #fafafa;
@@ -188,7 +186,7 @@
 }
 
 .cookiecard {
-  width:100%;
+  width: 100%;
   flex-direction: row;
   margin: auto;
   text-align: center;
@@ -198,48 +196,49 @@
   border-width: 2px;
 }
 
-.cookiecard .button{
+.cookiecard .button {
   /* width: 30%; */
   background-color: inherit;
   color: black;
   font-size: 1.5rem;
   /* height: fit-content; */
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   border-style: none;
 }
 
-.cookiecard .title{
+.cookiecard .title {
   font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   margin-bottom: 1rem;
-  padding-top: .3rem; padding-bottom: .3rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
-.cookiecard .text{
+.cookiecard .text {
   font-size: 1.2rem;
   display: inline-block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-.cookiecard a{
+.cookiecard a {
   color: #00498c;
 }
 
-.cookiecard a:hover{
+.cookiecard a:hover {
   color: #0070f3;
 }
 
 .cardimg {
   width: 10rem;
   height: fit-content;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 .logo {
   height: 1em;
   margin-left: 0.5rem;
-} 
+}
 
 .cookieAlert {
   position: sticky;
@@ -275,7 +274,7 @@
 }
 
 .lectureSidebar {
-  height: calc(100% * var(--hex-parent-height));;
+  height: calc(100% * var(--hex-parent-height));
   width: 250px;
   background-color: #003458;
   color: #ffffff;
@@ -317,8 +316,8 @@
   padding: 20px;
 }
 
-.lectureCards h3{
-  font-family: 'Noto Sans', sans-serif;
+.lectureCards h3 {
+  font-family: "Noto Sans", sans-serif;
   font-weight: 700;
 }
 
@@ -330,31 +329,31 @@
 .lectureTitle {
   padding-top: 10px;
   font-weight: 700;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
 }
 
 .lectureDate {
-  color:#b1b1b1;
+  color: #b1b1b1;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@800&family=Karla:ital,wght@1,200&family=Merriweather:ital,wght@1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@800&family=Karla:ital,wght@1,200&family=Merriweather:ital,wght@1,700&display=swap");
 
-.aboutfont{
-  font-family: 'Noto Sans', sans-serif;
+.aboutfont {
+  font-family: "Noto Sans", sans-serif;
   font-weight: 400;
 }
 
-.aboutfont2{
-  font-family: 'Noto Sans', sans-serif;
+.aboutfont2 {
+  font-family: "Noto Sans", sans-serif;
   font-weight: 700;
-  font-size: 1.3rem
+  font-size: 1.3rem;
 }
 
 .about {
   padding-left: 30px;
-  padding-right:30px;
-  padding-top:15px;
-  padding-bottom:15px;
+  padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   margin: 80px;
   width: 100%;
   align-items: center;
@@ -362,13 +361,13 @@
 }
 
 .aboutimg {
-  display: 'block';
+  display: "block";
   max-width: 100%;
   align-items: center;
 }
 
-.abouttitle{
-  font-family: 'Ubuntu', sans-serif;
+.abouttitle {
+  font-family: "Ubuntu", sans-serif;
   font-weight: 700;
   font-size: 3rem;
   text-align: center;
@@ -381,22 +380,21 @@
   }
 }
 
-.courselist{
+.courselist {
   text-align: start;
-  padding:10px;
-  font-family: 'Noto Sans', sans-serif;
-  
+  padding: 10px;
+  font-family: "Noto Sans", sans-serif;
 }
 
-.courselist h5{
-  margin:0;
-  font-size:25px;
+.courselist h5 {
+  margin: 0;
+  font-size: 25px;
   font-weight: 700;
 }
 
-.courselist p{
-  margin:0;
-  font-family: 'Noto Sans', sans-serif;
+.courselist p {
+  margin: 0;
+  font-family: "Noto Sans", sans-serif;
 }
 
 .video-responsive {
@@ -414,7 +412,8 @@
   flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
-  list-style: none; }
+  list-style: none;
+}
 
 .sidebar {
   min-width: 350px;
@@ -425,4 +424,87 @@
   -o-transition: all 0.3s;
   transition: all 0.3s;
   z-index: 0;
-  border-left: 1px solid rgba(0, 0, 0, 0.05); }
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.qnaSection {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+.qnaSection h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.qnaSection form {
+  margin-bottom: 30px;
+}
+
+.qnaSection input[type="text"],
+.qnaSection textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.qnaSection button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.qnaSection button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.qnaList {
+  margin-top: 20px;
+}
+
+.qnaList h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 15px;
+}
+
+.qnaItem {
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.qnaItem h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.qnaItem p {
+  font-size: 16px;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+.qnaItem a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.qnaItem a:hover {
+  color: #007bff;
+}

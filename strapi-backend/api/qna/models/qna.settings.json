@@ -27,6 +27,11 @@
       "model": "lecture",
       "via": "qnas",
       "description": "The lecture this QnA is related to"
+    },
+    "answers": {
+      "collection": "answer",
+      "via": "qna",
+      "description": "List of answers related to this QnA"
     }
   }
 }
