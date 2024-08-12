@@ -35,7 +35,7 @@
     {
       "method": "POST",
       "path": "/auths/sign-in",
-      "handler": "auth.find",
+      "handler": "auth.signIn",
       "config": {
         "policies": []
       }
@@ -52,6 +52,14 @@
       "method": "DELETE",
       "path": "/auths/:id",
       "handler": "auth.delete",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/auths/check-email",
+      "handler": "auth.checkEmail",
       "config": {
         "policies": []
       }
