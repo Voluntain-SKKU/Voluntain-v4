@@ -4,6 +4,7 @@
   "description": "```\r $ cd Voluntain-v4\r $ npm install \r $ npm run dev\r ```",
   "main": "index.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "concurrently": "^6.2.1"
   },
   "devDependencies": {},

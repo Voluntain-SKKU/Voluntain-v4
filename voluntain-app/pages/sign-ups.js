@@ -1,122 +1,122 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import { useRouter } from 'next/router';
+import { useAuth } from '../src/context/AuthContext';
+import styles from '../styles/Home.module.css'
 import Typography from '@material-ui/core/Typography';
 import { TextField, Button, Divider } from '@material-ui/core';
-import { useRouter } from 'next/router'; // Next.js 라우터 사용
-import { useAuth } from '../src/context/AuthContext'; // AuthContext 사용
+import bcrypt from 'bcryptjs';
 
 export default function SignUpPage() {
-  const router = useRouter(); // useRouter 훅 사용
-  const { login } = useAuth(); // login 함수 가져오기
+  const router = useRouter();
+  const { login } = useAuth();
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    repeatPassword: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const userData = {
-      username: formData.get('username'),
-      email: formData.get('email'),
-      password: formData.get('password'),
-    };
+    const { username, email, password, repeatPassword } = formData;
 
-    // Strapi API로 데이터 전송
-    const response = await fetch('http://localhost:1337/auths/sign-up', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-      }),
-    });
+    if (!username || !email || !password || password !== repeatPassword) {
+      alert('Please check your inputs');
+      return;
+    }
 
-    const data = await response.json();
+    if (password !== repeatPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
 
-    if (response.ok) {
-      console.log('Registration successful', data);
-      login();
-      router.push('/'); // useHistory 대신 useRouter의 push 메소드 사용
-    } else {
-      console.error('Registration failed', data.message);
-      // 실패 처리 로직
+    if (password.length < 8) {
+      alert('Password must be at least 8 characters long');
+      return;
+    }
+
+    try {
+      const checkEmailResponse = await fetch('http://localhost:1337/auths/check-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const emailData = await checkEmailResponse.json();
+      if (!checkEmailResponse.ok) {
+        alert('Email already exists');
+        return;
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const signUpResponse = await fetch('http://localhost:1337/auths/sign-up', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password: hashedPassword }),
+      });
+
+      if (signUpResponse.ok) {
+        login();
+        router.push('/');
+      } else {
+        alert('Failed to sign up');
+      }
+    } catch (error) {
+      alert('Network error');
     }
   };
 
   return (
-    <div className={styles.container} style={{height: '100vh'}}>
+    <div className={styles.loginWrap}>
       <Head>
-        <title>Sign Up - Voluntain</title>
+        <title>Sign Up</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet" />
       </Head>
-      <main className={styles.main}>
-        <Typography component="h2" variant="h3" align="center" color="textPrimary" style={{ marginTop: '50px' }}>
-          Sign Up
-        </Typography>
-        <Divider style={{ margin: 15, width: '5%', background: '#ffffff', borderTop: 'thin solid black' }} />
-        <Typography variant="h5" align="center" color="textSecondary" paragraph>
-          Create your account to join our community!
-        </Typography>
-        
-        <form style={{ maxWidth: 500, margin: 'auto' }} onSubmit={handleSubmit}>
-          <TextField
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            margin="normal"
-            variant="outlined"
-            InputLabelProps={{
-              style: { fontSize: 12, fontFamily: 'Arial', fontWeight: 'bold', position: 'absolute', top: '-6px'}
-            }}
-            InputProps={{
-              style: { height: 40 }
-            }}
-          />
-          <TextField
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            type="email"
-            margin="normal"
-            variant="outlined"
-            InputLabelProps={{
-              style: { fontSize: 12, fontFamily: 'Arial', fontWeight: 'bold', position: 'absolute', top: '-6px'}
-            }}
-            InputProps={{
-              style: { height: 40 }
-            }}
-          />
-          <TextField
-            required
-            fullWidth
-            id="password"
-            label="Password"
-            name="password"
-            type="password"
-            margin="normal"
-            variant="outlined"
-            InputLabelProps={{
-              style: { fontSize: 12, fontFamily: 'Arial', fontWeight: 'bold', position: 'absolute', top: '-6px'}
-            }}
-            InputProps={{
-              style: { height: 40 }
-            }}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color= "#0e341b"
-            style={{ marginTop: 20, marginBottom: 70, height: 40, background: "#0e341b", color: 'white', fontSize: 18}}
-          >
-            Sign Up
-          </Button>
-        </form>
-      </main>
+      <div className={styles.loginHtml}>
+        <div className="login-form">
+          <div className={styles.signUpHtm}>
+            <Typography component="h3" variant="h4" color="white" style={{ marginTop: '30px', color: 'white' }}>
+              Sign Up
+            </Typography>
+            <Divider align= "center" style={{ color: 'white', margin: 10, width: '5%', background: '#ffffff', borderTop: 'thin solid white' }} />
+            <Typography variant="h6" style={{ color: 'white', marginBottom: 30}} paragraph>
+              Create your account to join our community!
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <div className={styles.group}>
+                <label htmlFor="username" className={styles.label}>Username</label>
+                <input id="username" type="text" className={styles.input} name="username" value={formData.username} onChange={handleChange} />
+              </div>
+              <div className={styles.group}>
+                <label htmlFor="email" className={styles.label}>Email Address</label>
+                <input id="email" type="email" className={styles.input} name="email" value={formData.email} onChange={handleChange} />
+              </div>
+              <div className={styles.group}>
+                <label htmlFor="password" className={styles.label}>Password</label>
+                <input id="password" type="password" className={styles.input} data-type="password" name="password" value={formData.password} onChange={handleChange} />
+              </div>
+              <div className={styles.group}>
+                <label htmlFor="repeat-password" className={styles.label}>Repeat Password</label>
+                <input id="repeat-password" type="password" className={styles.input} data-type="password" name="repeatPassword" value={formData.repeatPassword} onChange={handleChange} />
+              </div>
+              <div className={styles.group}>
+                <input type="submit" className={styles.button} value="Sign Up" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
