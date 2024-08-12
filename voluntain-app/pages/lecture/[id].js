@@ -1,92 +1,49 @@
-import Head from 'next/head'
-import styles from '../../styles/Home.module.css'
-import { url } from '../../config/next.config'
+import Head from 'next/head';
+import styles from '../../styles/Home.module.css';
+import { url } from '../../config/next.config';
 import Youtube from 'react-youtube';
 import Router from 'next/router';
 import Link from "next/link";
 import React, { useState, useEffect } from 'react';
-//import { DiscussionEmbed } from "disqus-react";
-import { useCookies } from 'react-cookie'
-
-
-import { Button, Collapse, Drawer, Fab, List, ListItem, ListItemText, Hidden } from '@material-ui/core'
+import { useCookies } from 'react-cookie';
+import { Button, Hidden } from '@material-ui/core';
 import { useWindowSize } from '../../components/useWindowSize';
+import { LectureCards } from '../../components/LectureCards';
 
-import { LectureCards } from '../../components/LectureCards'
-
-export default function Home({ course, course2 }) {
-
+export default function Home({ course, course2, qnas }) {
   const size = useWindowSize();
 
-  /**
-   * States to handle cookies.
-   * @see https://www.npmjs.com/package/react-cookie
-   */
-   const [cookies, setCookie, removeCookie] = useCookies(['courseId', 'lectureId', 'videoEnd', 'noCookie']);
-
-  
-  //move to the course page of the lecture
-  const handleClick = (e) => {
-    e.preventDefault()
-    var link = "/newcourse/" + course2.id;
-    Router.push(link);
-  };
-
-  //move to the main
-  const handleClick2 = (e) => {
-    e.preventDefault()
-    Router.push('/');
-  }
-
-  /**
-   * 유튜브 API에 전달할 옵션 값입니다.
-   * 플레이어 주변에 충분한 여백을 확보하기 위해, 실제 브라우저 크기보다 height,
-   * width 값을 약간 작게 만들어야 합니다.
-   * @see https://developers.google.com/youtube/player_parameters
-   */
-  const opts = {
-    height: size.height > 650 ? '400' : size.height - 100,
-    width: size.width > 1050 ? '700' : size.width - 4000,
-    playerVars: {
-      // To check other variables, check:
-      // https://developers.google.com/youtube/player_parameters
-      cc_load_policy: 1,
-      modestbranding: 1,
-    }
-  }
-
-  //exercise link button을 위한 state
+  const [cookies, setCookie, removeCookie] = useCookies(['courseId', 'lectureId', 'videoEnd', 'noCookie']);
+  const [questionTitle, setQuestionTitle] = useState('');
+  const [question, setQuestion] = useState('');
+  const [questions, setQuestions] = useState(qnas || []);
   const [targetPlayer, setTargetPlayer] = useState({});
-  //exercise link button 관련 함수
-  ////현재 lecture의 video를 targetPlayer에 저장 (player 로드 완료시 실행됨)
-  const onPlayerReady = (event) => {
-    setTargetPlayer(targetPlayer => event.target);
-  }
-
-  ////현재 lecture video에서 exercise answer가 재생되는 시간으로 이동 (button 클릭시 실행됨)
-  const toExercise = (event) => {
-
-    targetPlayer.seekTo(course.exercise_answer, true);
-
-  }
-
-  const handleVideoEnd = () => {
-    if (cookies.noCookie === undefined)
-      setCookie('videoEnd', 1, { path: '/', maxAge: 31536000 });
-  }
   const [lectureId, setLectureId] = useState(0);
   const [isFirstLecture, setFirstLecture] = useState(1);
   const [isLastLecture, setLastLecture] = useState(course.length == 1 ? 1 : 0);
 
-  /**
-   * 유튜브 API에서 비디오 시작이 감지될 경우 시행되어 쿠키 값을 설정합니다.
-   * - cookies.courseId를 현재 코스 id로 설정
-   * - cookies.lectureId를 현재 강의 id로 설정
-   * - cookies.videoEnd를 0으로 설정
-   * - cookies.isLastLecture를 현재 상황에 맞게 설정
-   * 
-   * @require Youtube object의 onPlay prop으로서 주어져야 합니다.
-   */
+  const opts = {
+    height: size.height > 650 ? '400' : size.height - 100,
+    width: size.width > 1050 ? '700' : size.width - 4000,
+    playerVars: {
+      cc_load_policy: 1,
+      modestbranding: 1,
+    },
+  };
+
+  const onPlayerReady = (event) => {
+    setTargetPlayer(event.target);
+  };
+
+  const toExercise = () => {
+    targetPlayer.seekTo(course.exercise_answer, true);
+  };
+
+  const handleVideoEnd = () => {
+    if (cookies.noCookie === undefined)
+      setCookie('videoEnd', 1, { path: '/', maxAge: 31536000 });
+  };
+
   const handleVideoStart = () => {
     if (cookies.noCookie == undefined) {
       setCookie('courseId', course2.id, { path: '/', maxAge: 31536000 });
@@ -94,16 +51,9 @@ export default function Home({ course, course2 }) {
       setCookie('videoEnd', 0, { path: '/', maxAge: 31536000 });
       setCookie('isLastLecture', isLastLecture, { path: '/', maxAge: 31536000 });
     }
-  }
+  };
 
-  /**
-   * 첫 렌더링 이후에 한 번만, 브라우저에 저장된 cookies.lectureId 값에 접근하여
-   * 표시되는 강의를 바꿔줍니다.
-   * 그에 맞춰 이전 강의, 다음 강의 버튼 값도 바꿔줍니다.
-   * 
-   * 또한 사이드바의 세부 강의 목록을 열어줍니다.
-   */
-   React.useEffect(() => {
+  useEffect(() => {
     if (cookies.lectureId !== undefined && cookies.courseId == course.id) {
       console.log(`Loading the recent history...`);
       setLectureId(cookies.lectureId);
@@ -111,6 +61,40 @@ export default function Home({ course, course2 }) {
       setLastLecture(cookies.lectureId == course.length - 1 ? 1 : 0);
     }
   }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    var link = "/newcourse/" + course2.id;
+    Router.push(link);
+  };
+
+  const handleClick2 = (e) => {
+    e.preventDefault();
+    Router.push('/');
+  };
+
+  const handleQuestionSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch(`${url}/qnas`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: questionTitle,
+        content: question,
+        lecture: course.id,
+      }),
+    });
+
+    if (response.ok) {
+      const newQuestion = await response.json();
+      setQuestions([...questions, newQuestion]);
+      setQuestionTitle('');
+      setQuestion('');
+    }
+  };
 
   const list2 = () => (
     <div>
@@ -125,7 +109,7 @@ export default function Home({ course, course2 }) {
           <ul className="list-group" key={index}>
             <li className={active}>
               <div className={styles.courselist}>
-                <div clasName="ms-2 me-auto">
+                <div className="ms-2 me-auto">
                   <div className="fw-bold">
                     <Link href={"/lecture/" + (element.id == undefined ? 'landing' : element.id)}>
                       <h6>{element.title}</h6>
@@ -158,7 +142,7 @@ export default function Home({ course, course2 }) {
             <div className="col-lg-6 mx-auto">
               <p className="lead mb-4 text-center">{course.about}</p>
               <div className={styles.videoresponsive}>
-                <Youtube videoId={course.video_link} opts={opts} onReady={onPlayerReady} onPlay={handleVideoStart} onEnd={handleVideoEnd}  />
+                <Youtube videoId={course.video_link} opts={opts} onReady={onPlayerReady} onPlay={handleVideoStart} onEnd={handleVideoEnd} />
               </div>
               <br></br>
               <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
@@ -170,30 +154,54 @@ export default function Home({ course, course2 }) {
             </div>
           </div>
           <div className={styles.lectureCardContainer}>
-            {/*<div className={styles.lectureCardsRow}>
-              <LectureCards
-                title='Lecture Info'
-                content={course.about}
-              />
-            </div>*/}
             <div className={styles.lectureCardsRow}>
               <LectureCards
                 title='Exercise'
                 content={course.exercise_question}
               />
             </div>
-            {/* disqus */}
-            {/* <div style={{ width: '100%' }}>
-              <DiscussionEmbed
-                shortname={disqusShortname}
-                config={disqusConfig}
-              />
-            </div> */}
           </div>
+
+          {/* QnA 섹션 */}
+          <div className={styles.qnaSection}>
+            <h2>Questions & Answers</h2>
+            <form onSubmit={handleQuestionSubmit}>
+              <input
+                type="text"
+                value={questionTitle}
+                onChange={(e) => setQuestionTitle(e.target.value)}
+                placeholder="Enter your question title"
+                style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
+              />
+              <textarea
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                placeholder="Ask a question"
+                rows="4"
+                style={{ width: '100%', padding: '10px' }}
+              ></textarea>
+              <Button type="submit" variant="contained" color="primary">Submit Question</Button>
+            </form>
+
+            <div className={styles.qnaList}>
+              <h3>Previous Questions</h3>
+              {questions.map((q, index) => (
+                <div key={index} className={styles.qnaItem} style={{ borderBottom: '1px solid #ddd', padding: '10px 0' }}>
+                  <Link href={`/questions/${q.id}`}>
+                    <a>
+                      <h4>{q.title}</h4>
+                      <p>{q.content}</p>
+                    </a>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // send GET Request to {url}/lectures and get course list
@@ -204,8 +212,11 @@ export const getStaticProps = async (context) => {
   const data2 = await fetch(`${url}/courses/${course.course.id}`);
   const course2 = await data2.json();
 
+  const qnaResponse = await fetch(`${url}/qnas/lecture/${context.params.id}?sort=created_at:desc`);
+  const qnas = await qnaResponse.json();
+
   return {
-    props: { course, course2 },
+    props: { course, course2, qnas },
     revalidate: 1,
   };
 };

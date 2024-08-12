@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/qnas/index",
+      "handler": "qna.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/qnas/:id",
+      "handler": "qna.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/qnas/lecture/:lectureId",
+      "handler": "qna.findByLecture",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/qnas",
+      "handler": "qna.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/qnas/:id",
+      "handler": "qna.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/qnas/:id",
+      "handler": "qna.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

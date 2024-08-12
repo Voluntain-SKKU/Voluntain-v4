@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "answers",
+  "info": {
+    "name": "Answer",
+    "description": "Answers to QnA"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "content": {
+      "type": "text",
+      "required": true,
+      "description": "Content of the answer"
+    },
+    "user": {
+      "model": "auth",
+      "via": "answers",
+      "description": "The user who created the answer"
+    },
+    "qna": {
+      "model": "qna",
+      "via": "answers",
+      "description": "The QnA this answer is related to"
+    }
+  }
+}

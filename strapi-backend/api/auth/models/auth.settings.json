@@ -20,6 +20,16 @@
     },
     "password": {
       "type": "password"
+    },
+    "qnas": {
+      "collection": "qna",
+      "via": "user",
+      "description": "List of QnAs created by the user"
+    },
+    "answers": {
+      "collection": "answer",
+      "via": "user",
+      "description": "List of answers created by the user"
     }
   }
 }

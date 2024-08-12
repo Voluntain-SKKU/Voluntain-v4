@@ -39,6 +39,11 @@
     },
     "exercise_answer": {
       "type": "integer"
+    },
+    "qnas": {
+      "collection": "qna",
+      "via": "lecture",
+      "description": "QnAs related to this lecture"
     }
   }
 }
