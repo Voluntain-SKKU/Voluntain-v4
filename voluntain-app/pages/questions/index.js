@@ -9,7 +9,6 @@ export async function getStaticProps() {
             throw new Error('Failed to fetch data');
         }
         const questions = await response.json();
-        console.log(questions)
         return { props: { questions } };
     } catch (error) {
         return { props: { questions: [], error: error.message } };

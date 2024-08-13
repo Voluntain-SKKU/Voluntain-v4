@@ -1,4 +1,5 @@
 'use strict';
+const { sanitizeEntity } = require('strapi-utils');
 
 module.exports = {
     // 특정 lectureId에 속한 QnA를 가져오는 controller
@@ -15,5 +16,17 @@ module.exports = {
         } catch (error) {
             ctx.throw(500, `Unable to fetch QnAs for lectureId ${lectureId}`);
         }
+    },
+    async findByUserId(ctx) {
+        let entities;
+        if (ctx.query.user_id) {
+            entities = await strapi.services.qna.find({ user: ctx.query.user_id });
+        } else {
+            entities = await strapi.services.qna.find(ctx.query);
+        }
+
+        return entities.map(entity =>
+            sanitizeEntity(entity, { model: strapi.models.qna })
+        );
     },
 };

@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/qnas",
+      "handler": "qna.findByUserId",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
