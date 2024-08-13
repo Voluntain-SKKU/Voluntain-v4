@@ -6,10 +6,9 @@ module.exports = {
         const { lectureId } = ctx.params;
 
         try {
-            const result = await strapi.query('qna').model.fetchAll({
-                columns: ['id', 'title', 'content', 'updated_at'],
-                withRelated: ['user'], // 'user' 필드를 포함하여 관련 데이터를 가져옵니다.
-                where: { lecture: lectureId },
+
+            const result = await strapi.query('qna').find({
+                lecture: lectureId, // lectureId로 필터링
             });
 
             ctx.send(result);
