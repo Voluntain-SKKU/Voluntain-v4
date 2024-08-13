@@ -57,9 +57,10 @@ const CreateQuestionPage = () => {
         }
 
         const userData = localStorage.getItem('user');
+        console.log(userData);
         const user = userData ? JSON.parse(userData) : null;
 
-        if (!user || !user.id) {
+        if (!user || !user.user.id) {
             alert("You must be logged in to submit a question.");
             return;
         }
@@ -73,7 +74,7 @@ const CreateQuestionPage = () => {
                 body: JSON.stringify({
                     title,
                     content,
-                    auth: user.id, // Use the logged-in user's ID
+                    auth: user.user.id, // Use the logged-in user's ID
                     lecture: selectedLecture || null, // Include the selected lecture, or null if "etc" is chosen
                 }),
             });
