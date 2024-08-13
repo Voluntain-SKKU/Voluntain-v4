@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Question.module.css';
-
+import Hstyles from '../../styles/Home.module.css';
 const QuestionDetail = () => {
     const [question, setQuestion] = useState(null);
     const [answers, setAnswers] = useState([]);
@@ -30,12 +30,12 @@ const QuestionDetail = () => {
             alert('Answer cannot be empty');
             return;
         }
-        
+
         const userData = localStorage.getItem('user');
         const user = userData ? JSON.parse(userData) : null;
 
         if (!user || !user.id) {
-            alert("You must be logged in to submit a answer.");
+            alert("You must be logged in to submit an answer.");
             return;
         }
 
@@ -69,8 +69,8 @@ const QuestionDetail = () => {
             {question ? (
                 <>
                     <div className={styles.questionContainer}>
-                        <h1>{question.title}</h1>
-                        <p className={styles.questionContent}>{question.content}</p>
+                        <h1 className={styles.questionTitle}>{question.title}</h1>
+                        <div className={styles.questionContent}>{question.content}</div>
                         <div className={styles.questionMeta}>
                             <p>Asked by: {question.user?.username}</p>
                             <p>Date: {formatDate(question.updated_at)}</p> {/* Use updated_at here */}
@@ -101,7 +101,7 @@ const QuestionDetail = () => {
                                 onChange={(e) => setNewAnswer(e.target.value)}
                                 placeholder="Write your answer here..."
                             />
-                            <button type="submit" className={styles.submitButton}>
+                            <button type="submit" className={Hstyles.myButton}>
                                 Submit Answer
                             </button>
                         </form>
