@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Question.module.css';
 import Hstyles from '../../styles/Home.module.css';
+import { url } from '../../config/next.config'
+
 const QuestionDetail = () => {
     const [question, setQuestion] = useState(null);
     const [answers, setAnswers] = useState([]);
@@ -11,12 +13,12 @@ const QuestionDetail = () => {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:1337/qnas/${id}`)
+            fetch(`${url}/qnas/${id}`)
                 .then(response => response.json())
                 .then(data => setQuestion(data))
                 .catch(error => console.error('Error fetching question:', error));
 
-            fetch(`http://localhost:1337/answers/qna/${id}`)
+            fetch(`${url}/answers/qna/${id}`)
                 .then(response => response.json())
                 .then(data => setAnswers(data))
                 .catch(error => console.error('Error fetching answers:', error));
@@ -39,7 +41,7 @@ const QuestionDetail = () => {
             return;
         }
 
-        fetch(`http://localhost:1337/answers`, {
+        fetch(`${url}/answers`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
