@@ -56,16 +56,16 @@ const CreateQuestionPage = () => {
             return;
         }
 
-        const userData = localStorage.getItem('user');
-        console.log(userData);
-        const user = userData ? JSON.parse(userData) : null;
-
-        if (!user || !user.user.id) {
-            alert("You must be logged in to submit a question.");
-            return;
-        }
-
         try {
+            const userData = localStorage.getItem('user');
+            console.log(userData);
+            const user = userData ? JSON.parse(userData) : null;
+
+            if (!user || !user.user.id) {
+                alert("You must be logged in to submit a question.");
+                return;
+            }
+            
             const response = await fetch(`${url}/qnas`, {
                 method: 'POST',
                 headers: {
