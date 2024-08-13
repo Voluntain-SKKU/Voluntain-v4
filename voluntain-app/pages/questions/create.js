@@ -74,7 +74,7 @@ const CreateQuestionPage = () => {
                 body: JSON.stringify({
                     title,
                     content,
-                    auth: user.user.id, // Use the logged-in user's ID
+                    user: user.user.id, // Use the logged-in user's ID
                     lecture: selectedLecture || null, // Include the selected lecture, or null if "etc" is chosen
                 }),
             });
