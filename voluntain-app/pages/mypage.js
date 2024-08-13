@@ -21,7 +21,7 @@ export default function MyPage() {
 
     const fetchQuestionsAndAnswers = async (userId) => {
         try {
-            const response = await fetch(`${url}/qnas?user_id=${userId}`);
+            const response = await fetch(`${url}/qnas/user/${userId}`);
             if (response.ok) {
                 const data = await response.json();
                 setQuestions(data);
