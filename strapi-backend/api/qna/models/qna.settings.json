@@ -31,6 +31,10 @@
       "collection": "answer",
       "via": "qna",
       "description": "List of answers related to this QnA"
+    },
+    "views": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

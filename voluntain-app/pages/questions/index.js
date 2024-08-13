@@ -4,7 +4,7 @@ import styles from '../../styles/QuestionIndex.module.css';
 
 export async function getStaticProps() {
     try {
-        const response = await fetch('http://localhost:1337/qnas/index');
+        const response = await fetch('http://localhost:1337/qnas/index?_sort=id:DESC');
         if (!response.ok) {
             throw new Error('Failed to fetch data');
         }
@@ -20,15 +20,27 @@ export default function Questions({ questions, error }) {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.questionsHeader}>Questions</h1>
+            <div className={styles.header}>
+                <h1 className={styles.questionsHeader}>Questions</h1>
+                <Link href="/questions/create">
+                    <button className={styles.createButton}>Create Post</button>
+                </Link>
+            </div>
             <ul className={styles.questionList}>
                 {questions.map((question) => (
                     <li key={question.id} className={styles.questionItem}>
                         <Link href={`/questions/${question.id}`}>
-                            <a>
-                                <h2>{question.title}</h2>
-                                <p>{question.content}</p>
-                                <small>Author: {question.user ? question.user.username : 'Unknown'}</small>
+                            <a onClick={() => handleViewIncrement(question.id)}>
+                                <div className={styles.titleRow}>
+                                    <h2 className={styles.questionTitle}>{question.title}</h2>
+                                    {question.isNew && <span className={styles.newBadge}>NEW</span>}
+                                </div>
+                                <p className={styles.questionContent}>{question.content}</p>
+                                <div className={styles.metaInfo}>
+                                    <span>Author: {question.user ? question.user.username : 'Unknown'}</span>
+                                    <span>{new Date(question.created_at).toLocaleDateString()}</span>
+                                    <span>Views: {question.views || 0}</span>
+                                </div>
                             </a>
                         </Link>
                     </li>
@@ -37,3 +49,13 @@ export default function Questions({ questions, error }) {
         </div>
     );
 }
+
+const handleViewIncrement = async (id) => {
+    try {
+        await fetch(`http://localhost:1337/qnas/${id}/view`, {
+            method: 'GET',
+        });
+    } catch (error) {
+        console.error('Failed to increment views:', error);
+    }
+};
