@@ -20,11 +20,22 @@ export const CourseCard = (props)=> {
     // 난이도에 따른 별 기호
     let stars = new Map([["easy", "★"], ["normal", "★ ★"], ["hard", "★ ★ ★"]]);
 
+    const imagePath = (title) => {
+        switch(title.toLowerCase()) {
+            case 'scratch':
+                return '../public/scratch_logo.png'; // public 폴더 내의 경로
+            case 'python':
+                return '../public/python.jpg'; // public 폴더 내의 경로
+            default:
+                return '../public/scratch_logo.png'; // 기본 이미지 경로
+        }
+    };
+
     return(
         <div className={styles.coursecard}>
             <a href={props.link}>
             <Card className={styles.maincard}>
-                <Card.Img variant="top" src={props.img} className={styles.cardimg}/>
+                <Card.Img variant="top" src={imagePath(props.title)} className={styles.cardimg}/>
                 <Card.Body>
                 <Card.Title className={styles.title}>{props.title}</Card.Title>
                 <Card.Text className={styles.text}>

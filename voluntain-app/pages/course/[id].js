@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import { url } from "../../config/next.config";
