@@ -5,6 +5,7 @@ import { useAuth } from '../src/context/AuthContext';
 import styles from '../styles/Home.module.css';
 import Typography from '@material-ui/core/Typography';
 import { TextField, Button, Divider } from '@material-ui/core';
+import { url } from '../config/next.config'
 
 export default function SignInPage() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function SignInPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:1337/auths/sign-in', {
+      const response = await fetch(`${url}/auths/sign-in`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
