@@ -2,6 +2,8 @@ import styles from '../styles/Home.module.css'
 import { Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Link from 'next/link' // 속도 저하? 대신 a 태그 사용
+import { url } from '../config/next.config'
+import Head from 'next/head';
 
 /**
  * @note
@@ -16,37 +18,28 @@ import Link from 'next/link' // 속도 저하? 대신 a 태그 사용
  * - link: 강좌 페이지 링크 
  * - level: 난이도 (1 ~ 5)
  */
-export const CourseCard = (props)=> {
+
+
+export const CourseCard = (props) => {
     // 난이도에 따른 별 기호
     let stars = new Map([["easy", "★"], ["normal", "★ ★"], ["hard", "★ ★ ★"]]);
 
-    const imagePath = (title) => {
-        switch(title.toLowerCase()) {
-            case 'scratch':
-                return '../public/scratch_logo.png'; // public 폴더 내의 경로
-            case 'python':
-                return '../public/python.jpg'; // public 폴더 내의 경로
-            default:
-                return '../public/scratch_logo.png'; // 기본 이미지 경로
-        }
-    };
-
-    return(
+    return (
         <div className={styles.coursecard}>
             <a href={props.link}>
-            <Card className={styles.maincard}>
-                <Card.Img variant="top" src={imagePath(props.title)} className={styles.cardimg}/>
-                <Card.Body>
-                <Card.Title className={styles.title}>{props.title}</Card.Title>
-                <Card.Text className={styles.text}>
-                    {props.content}
-                </Card.Text>
-                <Card.Footer className="py-2 px-0 bg-transparent border-secondary">
-                    Difficulty : { props.level } {' '} {stars.get(props.level)}
-                </Card.Footer>
-                </Card.Body>
-            </Card>
+                <Card className={styles.maincard}>
+                    <Card.Img variant="top" src={props.img} className={styles.cardimg} />
+                    <Card.Body>
+                        <Card.Title className={styles.title}>{props.title}</Card.Title>
+                        <Card.Text className={styles.text}>
+                            {props.content}
+                        </Card.Text>
+                        <Card.Footer className="py-2 px-0 bg-transparent border-secondary">
+                            Difficulty : {props.level} {' '} {stars.get(props.level)}
+                        </Card.Footer>
+                    </Card.Body>
+                </Card>
             </a>
-      </div>
+        </div>
     );
 };
