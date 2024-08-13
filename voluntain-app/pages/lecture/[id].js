@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
 import Lstyles from '../../styles/LectureQuestion.module.css'; // Import your new CSS file here
