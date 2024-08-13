@@ -1,10 +1,10 @@
 .container {
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f5f5f5; /* Light gray background */
-  border-radius: 8px; /* Rounded corners for the container */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -15,11 +15,9 @@
 }
 
 .questionsHeader {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
   color: #333;
-  text-align: left;
-  margin: 0;
 }
 
 .createButton {
@@ -38,28 +36,21 @@
 }
 
 .questionList {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
-  margin: 0;
 }
 
 .questionItem {
-  padding: 20px;
   margin-bottom: 20px;
-  background-color: #ffffff; /* White background for each item */
-  border-radius: 8px; /* Rounded corners for each item */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.questionItem:hover {
-  background-color: #f1f1f1; /* Slightly darker on hover */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .questionItem a {
-  text-decoration: none; /* Remove underline from links */
-  color: inherit; /* Inherit color */
+  text-decoration: none; /* Remove underline from the entire link */
+  color: inherit; /* Inherit text color from the parent */
 }
 
 .titleRow {
@@ -69,33 +60,45 @@
 }
 
 .questionTitle {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
-  color: #000;
+  color: #333;
   margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: nowrap; /* Prevents the text from wrapping */
+  overflow: hidden; /* Hides overflow content */
+  text-overflow: ellipsis; /* Adds ellipsis (...) for overflow */
 }
 
-.newBadge {
-  font-size: 12px;
-  color: #ff0000;
-  background-color: #fff0f0;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-weight: bold;
+.separator {
+  margin: 15px 0;
+  border-top: 1px solid #ddd;
+  width: 95%; /* Adjust this width to not touch the edges */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .questionContent {
   font-size: 16px;
-  color: #666;
-  margin: 10px 0;
+  color: #555;
+  margin-top: 10px;
+  line-height: 1.6;
+  max-height: 140px; /* Approximately 7 lines of text */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 7; /* Number of lines before truncation */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .metaInfo {
+  margin-top: 20px;
   font-size: 14px;
-  color: #999;
+  color: #777;
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
-  text-align: right;
+  justify-content: flex-end; /* Align to the right */
+  gap: 10px; /* Add some spacing between elements */
 }

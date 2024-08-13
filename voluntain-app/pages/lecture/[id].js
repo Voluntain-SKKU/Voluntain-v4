@@ -2,6 +2,7 @@
 
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
+import Lstyles from '../../styles/LectureQuestion.module.css'; // Import your new CSS file here
 import { url } from '../../config/next.config';
 import Youtube from 'react-youtube';
 import Router from 'next/router';
@@ -174,7 +175,7 @@ export default function Home({ course, course2, qnas }) {
           </div>
 
           {/* QnA 섹션 */}
-          <div className={styles.qnaSection}>
+          <div className={Lstyles.qnaSection}>
             <h2>Questions & Answers</h2>
             <form onSubmit={handleQuestionSubmit}>
               <input
@@ -182,33 +183,38 @@ export default function Home({ course, course2, qnas }) {
                 value={questionTitle}
                 onChange={(e) => setQuestionTitle(e.target.value)}
                 placeholder="Enter your question title"
-                style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
               />
               <textarea
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
                 placeholder="Ask a question"
                 rows="4"
-                style={{ width: '100%', padding: '10px' }}
               ></textarea>
-              <Button type="submit" variant="contained" color="primary">Submit Question</Button>
+              <Button type="submit" className={Lstyles.submitButton}>Submit Question</Button>
             </form>
 
-            <div className={styles.qnaList}>
+            <div className={Lstyles.qnaList}>
               <h3>Previous Questions</h3>
               {questions.map((q, index) => (
-                <div key={index} className={styles.qnaItem} style={{ borderBottom: '1px solid #ddd', padding: '10px 0' }}>
+                <div key={index} className={Lstyles.qnaItem}>
                   <Link href={`/questions/${q.id}`}>
                     <a>
-                      <h4>{q.title}</h4>
+                      <div className={Lstyles.titleRow}>
+                        <h4>{q.title}</h4>
+                      </div>
+                      <div className={Lstyles.separator}></div>
                       <p>{q.content}</p>
+                      <div className={Lstyles.metaInfo}>
+                        <span>Author: {q.user ? q.user.username : 'Unknown'}</span>
+                        <span>{new Date(q.created_at).toLocaleDateString()}</span>
+                        <span>Views: {q.views || 0}</span>
+                      </div>
                     </a>
                   </Link>
                 </div>
               ))}
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -223,7 +229,7 @@ export const getStaticProps = async (context) => {
   const data2 = await fetch(`${url}/courses/${course.course.id}`);
   const course2 = await data2.json();
 
-  const qnaResponse = await fetch(`${url}/qnas/lecture/${context.params.id}?sort=created_at:desc`);
+  const qnaResponse = await fetch(`${url}/qnas/lecture/${context.params.id}?_sort=created_at:DESC`);
   const qnas = await qnaResponse.json();
 
   return {
@@ -242,4 +248,4 @@ export async function getStaticPaths() {
   }));
 
   return { paths, fallback: false };
-};
+}
