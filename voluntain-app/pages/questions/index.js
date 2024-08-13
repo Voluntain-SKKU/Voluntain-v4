@@ -55,7 +55,7 @@ export default function Questions({ questions, error }) {
 
 const handleViewIncrement = async (id) => {
     try {
-        await fetch(`http://localhost:1337/qnas/${id}/view`, {
+        await fetch(`${url}/qnas/${id}/view`, {
             method: 'GET',
         });
     } catch (error) {
