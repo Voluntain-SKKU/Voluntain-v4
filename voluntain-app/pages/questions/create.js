@@ -1,14 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import styles from '../../styles/Home.module.css';
+import styles from '../../styles/CreateQuestion.module.css';
 
 const CreateQuestionPage = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [lectures, setLectures] = useState([]);
+    const [selectedLecture, setSelectedLecture] = useState('');
+    const [titleError, setTitleError] = useState('');
     const router = useRouter();
+
+    const TITLE_MAX_LENGTH = 50; // Set the maximum title length
+
+    useEffect(() => {
+        // Fetch the list of lectures
+        const fetchLectures = async () => {
+            try {
+                const response = await fetch('http://localhost:1337/lectures');
+                const data = await response.json();
+                setLectures(data);
+            } catch (error) {
+                console.error('Failed to fetch lectures:', error);
+            }
+        };
+
+        fetchLectures();
+    }, []);
+
+    const handleTitleChange = (e) => {
+        const value = e.target.value;
+        if (value.length > TITLE_MAX_LENGTH) {
+            setTitleError(`Title cannot exceed ${TITLE_MAX_LENGTH} characters.`);
+        } else {
+            setTitleError('');
+        }
+        setTitle(value);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (title.length > TITLE_MAX_LENGTH) {
+            setTitleError(`Title cannot exceed ${TITLE_MAX_LENGTH} characters.`);
+            return;
+        }
 
         const userData = localStorage.getItem('user');
         const user = userData ? JSON.parse(userData) : null;
@@ -27,7 +62,8 @@ const CreateQuestionPage = () => {
                 body: JSON.stringify({
                     title,
                     content,
-                    auth: user.id // 실제 애플리케이션에서는 로그인한 사용자의 ID를 사용
+                    auth: user.id, // Use the logged-in user's ID
+                    lecture: selectedLecture || null, // Include the selected lecture, or null if "etc" is chosen
                 }),
             });
 
@@ -45,24 +81,43 @@ const CreateQuestionPage = () => {
 
     return (
         <div className={styles.container}>
-            <h1>Create a New Question</h1>
+            <h1 className={styles.header}>Create a New Question</h1>
             <form onSubmit={handleSubmit} className={styles.form}>
-                <label htmlFor="title">Title:</label>
+                <label htmlFor="title" className={styles.formLabel}>Title:</label>
                 <input
                     type="text"
                     id="title"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={handleTitleChange}
                     required
+                    className={styles.input}
                 />
-                <label htmlFor="content">Content:</label>
+                {titleError && <p className={styles.error}>{titleError}</p>}
+                <label htmlFor="content" className={styles.formLabel}>Content:</label>
                 <textarea
                     id="content"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     required
+                    className={styles.textarea}
                 />
-                <button type="submit">Submit</button>
+                <label htmlFor="lecture" className={styles.formLabel}>Related Lecture:</label>
+                <select
+                    id="lecture"
+                    value={selectedLecture}
+                    onChange={(e) => setSelectedLecture(e.target.value)}
+                    className={styles.select}
+                >
+                    <option value="">etc</option> {/* Default etc option */}
+                    {lectures.map((lecture) => (
+                        <option key={lecture.id} value={lecture.id}>
+                            {lecture.title}
+                        </option>
+                    ))}
+                </select>
+                <button type="submit" className={styles.button} disabled={!!titleError}>
+                    Submit
+                </button>
             </form>
         </div>
     );
