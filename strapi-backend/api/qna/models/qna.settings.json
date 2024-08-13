@@ -19,9 +19,8 @@
       "required": true
     },
     "user": {
-      "model": "auth",
       "via": "qnas",
-      "description": "The user who created the QnA"
+      "model": "auth"
     },
     "lecture": {
       "model": "lecture",

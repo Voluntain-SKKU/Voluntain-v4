@@ -16,9 +16,8 @@
       "description": "Content of the answer"
     },
     "user": {
-      "model": "auth",
       "via": "answers",
-      "description": "The user who created the answer"
+      "model": "auth"
     },
     "qna": {
       "model": "qna",

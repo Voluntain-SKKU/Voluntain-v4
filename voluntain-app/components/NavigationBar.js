@@ -56,7 +56,7 @@ export const NavigationBar = (props) => {
               <NavDropdown title={isLoggedIn ? "MY PAGE" : "SIGNIN"} id="basic-nav-dropdown">
                 {isLoggedIn ? (
                   <>
-                    <NavDropdown.Item href="/my-profile">My Profile</NavDropdown.Item>
+                    <NavDropdown.Item href="/mypage">My Profile</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                   </>
