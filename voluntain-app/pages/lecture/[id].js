@@ -76,6 +76,14 @@ export default function Home({ course, course2, qnas }) {
   const handleQuestionSubmit = async (e) => {
     e.preventDefault();
 
+    const userData = localStorage.getItem('user');
+    const user = userData ? JSON.parse(userData) : null;
+
+    if (!user || !user.id) {
+      alert("You must be logged in to submit a question.");
+      return;
+    }
+
     const response = await fetch(`${url}/qnas`, {
       method: 'POST',
       headers: {
@@ -85,6 +93,7 @@ export default function Home({ course, course2, qnas }) {
         title: questionTitle,
         content: question,
         lecture: course.id,
+        user: user.id
       }),
     });
 

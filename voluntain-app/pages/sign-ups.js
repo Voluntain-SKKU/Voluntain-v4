@@ -67,7 +67,13 @@ export default function SignUpPage() {
       });
 
       if (signUpResponse.ok) {
-        login();
+        const signUpData = await signUpResponse.json();
+        const userData = {
+          id: signUpData.id,
+          username: signUpData.username,
+          email: signUpData.email
+        };
+        login(userData);
         router.push('/');
       } else {
         alert('Failed to sign up');

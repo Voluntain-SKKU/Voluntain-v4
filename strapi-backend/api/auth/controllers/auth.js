@@ -45,5 +45,36 @@ module.exports = {
                 email: user.email,
             },
         });
-    }
+    },
+    async signUp(ctx) {
+        const { username, email, password } = ctx.request.body;
+
+        if (!email || !username || !password) {
+            return ctx.badRequest('Missing username, email, or password');
+        }
+
+        const existingUser = await strapi.services.auth.findOne({ email });
+        if (existingUser) {
+            return ctx.badRequest('Email is already in use');
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        try {
+            const user = await strapi.services.auth.create({
+                username,
+                email,
+                password: hashedPassword
+            });
+
+            ctx.send({
+                id: user.id,
+                username: user.username,
+                email: user.email
+            }, 201);
+        } catch (error) {
+            ctx.send({ message: 'Unable to create user.' }, 500);
+        }
+    },
 };

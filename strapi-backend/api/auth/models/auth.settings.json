@@ -30,6 +30,16 @@
       "collection": "answer",
       "via": "user",
       "description": "List of answers created by the user"
+    },
+    "grade": {
+      "type": "integer",
+      "default": 0
+    },
+    "country": {
+      "type": "string"
+    },
+    "school": {
+      "type": "string"
     }
   }
 }
