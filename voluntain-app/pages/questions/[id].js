@@ -30,6 +30,14 @@ const QuestionDetail = () => {
             alert('Answer cannot be empty');
             return;
         }
+        
+        const userData = localStorage.getItem('user');
+        const user = userData ? JSON.parse(userData) : null;
+
+        if (!user || !user.id) {
+            alert("You must be logged in to submit a answer.");
+            return;
+        }
 
         fetch(`http://localhost:1337/answers`, {
             method: 'POST',
@@ -39,7 +47,7 @@ const QuestionDetail = () => {
             body: JSON.stringify({
                 content: newAnswer,
                 qna: id,
-                user: 1, // 실제 사용자 ID로 대체해야 합니다.
+                user: user.id, // 실제 사용자 ID로 대체해야 합니다.
             }),
         })
             .then(response => response.json())

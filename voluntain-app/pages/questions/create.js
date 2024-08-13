@@ -9,6 +9,15 @@ const CreateQuestionPage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        const userData = localStorage.getItem('user');
+        const user = userData ? JSON.parse(userData) : null;
+
+        if (!user || !user.id) {
+            alert("You must be logged in to submit a question.");
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:1337/qnas', {
                 method: 'POST',
@@ -18,7 +27,7 @@ const CreateQuestionPage = () => {
                 body: JSON.stringify({
                     title,
                     content,
-                    auth: 1 // 실제 애플리케이션에서는 로그인한 사용자의 ID를 사용
+                    auth: user.id // 실제 애플리케이션에서는 로그인한 사용자의 ID를 사용
                 }),
             });
 
