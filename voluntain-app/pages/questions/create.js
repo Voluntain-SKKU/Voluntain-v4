@@ -19,7 +19,7 @@ const CreateQuestionPage = () => {
         // Fetch the list of lectures
         const fetchLectures = async () => {
             try {
-                const response = await fetch('http://localhost:1337/lectures');
+                const response = await fetch(`${url}/lectures`);
                 const data = await response.json();
                 setLectures(data);
             } catch (error) {
