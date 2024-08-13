@@ -50,8 +50,16 @@
     },
     {
       "method": "GET",
-      "path": "/qnas",
+      "path": "/qnas/user/:userId",
       "handler": "qna.findByUserId",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/qnas/:id/view",
+      "handler": "qna.findAndIncrementViews",
       "config": {
         "policies": []
       }
