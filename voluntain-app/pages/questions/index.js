@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from '../../styles/QuestionIndex.module.css';
+import { url } from '../../config/next.config'
 
 export async function getStaticProps() {
     try {
-        const response = await fetch('http://localhost:1337/qnas/index');
+        const response = await fetch(`${url}/qnas/index`);
         if (!response.ok) {
             throw new Error('Failed to fetch data');
         }

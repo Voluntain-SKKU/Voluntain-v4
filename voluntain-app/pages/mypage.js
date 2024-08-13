@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { TextField, Button, Typography, Divider, FormControl, InputLabel, Input } from '@material-ui/core';
 import styles from '../styles/Home.module.css';
 import Qstyles from '../styles/mypageQuestion.module.css';
+import { url } from '../config/next.config'
 
 
 export default function MyPage() {
@@ -20,7 +21,7 @@ export default function MyPage() {
 
     const fetchQuestionsAndAnswers = async (userId) => {
         try {
-            const response = await fetch(`http://localhost:1337/qnas?user_id=${userId}`);
+            const response = await fetch(`${url}/qnas?user_id=${userId}`);
             if (response.ok) {
                 const data = await response.json();
                 setQuestions(data);
@@ -45,7 +46,7 @@ export default function MyPage() {
 
     const fetchUserData = async (userId) => {
         try {
-            const response = await fetch(`http://localhost:1337/auths/${userId}`);
+            const response = await fetch(`${url}/auths/${userId}`);
             const data = await response.json();
             if (response.ok) {
                 setUser(data);
@@ -65,7 +66,7 @@ export default function MyPage() {
     const handleSave = async () => {
         const { username, email, school, country, grade } = user;
         try {
-            const response = await fetch(`http://localhost:1337/auths/${user.id}`, {
+            const response = await fetch(`${url}/auths/${user.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

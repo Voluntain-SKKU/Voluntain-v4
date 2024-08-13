@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css';
+import { url } from '../../config/next.config'
 
 const CreateQuestionPage = () => {
     const [title, setTitle] = useState('');
@@ -19,7 +20,7 @@ const CreateQuestionPage = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:1337/qnas', {
+            const response = await fetch(`${url}/qnas`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

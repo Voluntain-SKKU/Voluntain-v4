@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 import Typography from '@material-ui/core/Typography';
 import { TextField, Button, Divider } from '@material-ui/core';
 import bcrypt from 'bcryptjs';
+import { url } from '../config/next.config'
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function SignUpPage() {
     }
 
     try {
-      const checkEmailResponse = await fetch('http://localhost:1337/auths/check-email', {
+      const checkEmailResponse = await fetch(`${url}/auths/check-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +59,7 @@ export default function SignUpPage() {
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const signUpResponse = await fetch('http://localhost:1337/auths/sign-up', {
+      const signUpResponse = await fetch(`${url}/auths/sign-up`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
