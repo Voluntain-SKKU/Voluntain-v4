@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/CreateQuestion.module.css';
+import Hstyles from '../../styles/Home.module.css';
 import { url } from '../../config/next.config'
 
 const CreateQuestionPage = () => {
@@ -10,6 +11,7 @@ const CreateQuestionPage = () => {
     const [selectedLecture, setSelectedLecture] = useState('');
     const [titleError, setTitleError] = useState('');
     const router = useRouter();
+    const contentRef = useRef(null);
 
     const TITLE_MAX_LENGTH = 50; // Set the maximum title length
 
@@ -27,6 +29,14 @@ const CreateQuestionPage = () => {
 
         fetchLectures();
     }, []);
+
+    useEffect(() => {
+        // Auto-resize the textarea height based on its content
+        if (contentRef.current) {
+            contentRef.current.style.height = 'auto';
+            contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+        }
+    }, [content]);
 
     const handleTitleChange = (e) => {
         const value = e.target.value;
@@ -99,6 +109,7 @@ const CreateQuestionPage = () => {
                     id="content"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
+                    ref={contentRef}
                     required
                     className={styles.textarea}
                 />
@@ -116,7 +127,7 @@ const CreateQuestionPage = () => {
                         </option>
                     ))}
                 </select>
-                <button type="submit" className={styles.button} disabled={!!titleError}>
+                <button type="submit" className={Hstyles.myButton} disabled={!!titleError}>
                     Submit
                 </button>
             </form>

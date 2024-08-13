@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from '../../styles/QuestionIndex.module.css';
+import Hstyles from '../../styles/Home.module.css';
 import { url } from '../../config/next.config'
 
 export async function getStaticProps() {
@@ -24,7 +25,7 @@ export default function Questions({ questions, error }) {
             <div className={styles.header}>
                 <h1 className={styles.questionsHeader}>Questions</h1>
                 <Link href="/questions/create">
-                    <button className={styles.createButton}>Create Post</button>
+                    <button className={Hstyles.myButton}>Create Post</button>
                 </Link>
             </div>
             <ul className={styles.questionList}>
@@ -36,6 +37,7 @@ export default function Questions({ questions, error }) {
                                     <h2 className={styles.questionTitle}>{question.title}</h2>
                                     {question.isNew && <span className={styles.newBadge}>NEW</span>}
                                 </div>
+                                <div className={styles.separator}></div>
                                 <p className={styles.questionContent}>{question.content}</p>
                                 <div className={styles.metaInfo}>
                                     <span>Author: {question.user ? question.user.username : 'Unknown'}</span>
