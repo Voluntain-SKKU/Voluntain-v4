@@ -44,6 +44,7 @@ export default function SignInPage() {
         login(data); // Assuming `login` function takes the user data directly
         localStorage.setItem('user', JSON.stringify(data)); // Storing user data in localStorage
         router.push('/'); // Redirect to home on success
+        console.log(localStorage.getItem('user'));
       } else {
         console.error('Login failed', data.message);
         alert('Login failed: ' + data.message);

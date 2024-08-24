@@ -36,7 +36,7 @@ const QuestionDetail = () => {
         const userData = localStorage.getItem('user');
         const user = userData ? JSON.parse(userData) : null;
 
-        if (!user || !user.id) {
+        if (!user || !user.user.id) {
             alert("You must be logged in to submit an answer.");
             return;
         }
@@ -49,7 +49,7 @@ const QuestionDetail = () => {
             body: JSON.stringify({
                 content: newAnswer,
                 qna: id,
-                user: user.id, // 실제 사용자 ID로 대체해야 합니다.
+                user: user.user.id, // 실제 사용자 ID로 대체해야 합니다.
             }),
         })
             .then(response => response.json())

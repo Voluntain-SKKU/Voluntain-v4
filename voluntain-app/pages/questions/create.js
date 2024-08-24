@@ -56,15 +56,16 @@ const CreateQuestionPage = () => {
             return;
         }
 
-        const userData = localStorage.getItem('user');
-        const user = userData ? JSON.parse(userData) : null;
-
-        if (!user || !user.id) {
-            alert("You must be logged in to submit a question.");
-            return;
-        }
-
         try {
+            const userData = localStorage.getItem('user');
+            console.log(userData);
+            const user = userData ? JSON.parse(userData) : null;
+
+            if (!user || !user.user.id) {
+                alert("You must be logged in to submit a question.");
+                return;
+            }
+            
             const response = await fetch(`${url}/qnas`, {
                 method: 'POST',
                 headers: {
@@ -73,7 +74,7 @@ const CreateQuestionPage = () => {
                 body: JSON.stringify({
                     title,
                     content,
-                    auth: user.id, // Use the logged-in user's ID
+                    user: user.user.id, // Use the logged-in user's ID
                     lecture: selectedLecture || null, // Include the selected lecture, or null if "etc" is chosen
                 }),
             });

@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userData)); // 유저 데이터 로컬 스토리지에 저장
     setUser(userData);
     setIsLoggedIn(true);
-    console.log(localStorage.getItem('user'));
   };
 
   const logout = () => {

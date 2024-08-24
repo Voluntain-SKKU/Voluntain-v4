@@ -58,7 +58,7 @@ export const Footer = () => {
           <a href='/setting'>Privacy Policy</a>
         </Grid>
       </Grid>
-      <div className={styles.copyright}>© 2021 Voluntain. All rights reserved.</div>
+      <div className={styles.copyright}>© 2024 Voluntain. All rights reserved.</div>
     </footer>
   );
 }

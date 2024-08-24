@@ -57,6 +57,7 @@ export default function Home({ course, course2, qnas }) {
   };
 
   useEffect(() => {
+    console.log(localStorage.getItem('user'));
     if (cookies.lectureId !== undefined && cookies.courseId == course.id) {
       console.log(`Loading the recent history...`);
       setLectureId(cookies.lectureId);
@@ -82,7 +83,7 @@ export default function Home({ course, course2, qnas }) {
     const userData = localStorage.getItem('user');
     const user = userData ? JSON.parse(userData) : null;
 
-    if (!user || !user.id) {
+    if (!user || !user.user.id) {
       alert("You must be logged in to submit a question.");
       return;
     }
@@ -96,7 +97,7 @@ export default function Home({ course, course2, qnas }) {
         title: questionTitle,
         content: question,
         lecture: course.id,
-        user: user.id
+        user: user.user.id
       }),
     });
 

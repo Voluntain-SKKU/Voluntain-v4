@@ -35,8 +35,10 @@ export default function MyPage() {
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
+        console.log(userData);
         if (userData) {
-            const { id } = JSON.parse(userData);
+            const user = JSON.parse(userData);
+            const id = user.user.id
             fetchUserData(id);
             fetchQuestionsAndAnswers(id);
         } else {
