@@ -122,7 +122,6 @@ export default function Page( { titles }) {
 }
 export const getStaticProps = async () => {
 
-  // 이거 courses에서 뽑아오고 싶은데??
   const data0 = await fetch(`${url}/courses/title`);
   const titles = await data0.json();
 
