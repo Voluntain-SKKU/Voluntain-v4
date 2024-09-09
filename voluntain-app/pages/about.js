@@ -127,6 +127,6 @@ export const getStaticProps = async () => {
 
   return {
     props: {  titles },
-    revalidate: 1,//몇 초로 할지?
+    revalidate: 1,//몇 초
   };
 };
