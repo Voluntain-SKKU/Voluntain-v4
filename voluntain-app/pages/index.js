@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { url, assetPrefix } from '../config/next.config' //url 가져오기
+import { url, assetPrefix } from '../config/next.config'
 
 import { MainBanner } from '../components/MainBanner'
 import { MainCard } from '../components/MainCard'

@@ -42,7 +42,7 @@ export default function MyPage() {
             fetchUserData(id);
             fetchQuestionsAndAnswers(id);
         } else {
-            router.push('/sign-ins'); // Redirect to sign-in page if not logged in
+            router.push('/sign-ins');
         }
     }, []);
 
@@ -87,7 +87,7 @@ export default function MyPage() {
     };
 
     const toggleQuestion = (id) => {
-        setActiveQuestionId(activeQuestionId === id ? null : id); // Toggle active question
+        setActiveQuestionId(activeQuestionId === id ? null : id);
     };
 
     return (
